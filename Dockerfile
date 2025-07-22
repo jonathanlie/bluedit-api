@@ -8,8 +8,9 @@
 # For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version
-ARG RUBY_VERSION=3.4.2
-FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
+# ARG RUBY_VERSION=3.4.2
+# FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
+FROM docker.io/library/ruby:3.4.2-slim AS base
 
 # Rails app lives here
 WORKDIR /rails
@@ -62,8 +63,10 @@ RUN groupadd --system --gid 1000 rails && \
 USER 1000:1000
 
 # Entrypoint prepares the database.
-ENTRYPOINT ["/rails/bin/docker-entrypoint"]
+# ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
-CMD ["./bin/thrust", "./bin/rails", "server"]
+# Expose the standard Rails port
+EXPOSE 3000
+
+# Start the server on the default port 3000
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

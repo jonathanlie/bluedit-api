@@ -42,4 +42,9 @@
 
 # Ignore Docker-related files
 /.dockerignore
-/Dockerfile*
+# /Dockerfile*
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+.git
+.gitignore
