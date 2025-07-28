@@ -11,9 +11,9 @@ class ApiV1SubblueditsFlowTest < ActionDispatch::IntegrationTest
       params: { subbluedit: { name: "FlowSub", description: "Flow desc" } },
       headers: { "Authorization" => "Bearer #{@token}" }
     assert_response :created
-    sub_id = JSON.parse(@response.body)["id"]
+    sub_name = JSON.parse(@response.body)["name"]
 
-    get api_v1_subbluedit_url(sub_id)
+    get api_v1_subbluedit_url(sub_name)
     assert_response :success
     assert_match "FlowSub", @response.body
   end

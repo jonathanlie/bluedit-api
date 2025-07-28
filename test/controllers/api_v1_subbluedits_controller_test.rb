@@ -8,7 +8,7 @@ class ApiV1SubblueditsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show subbluedit" do
-    get api_v1_subbluedit_url(@subbluedit)
+    get api_v1_subbluedit_url(@subbluedit.name)
     assert_response :success
     assert_match @subbluedit.name, @response.body
   end
