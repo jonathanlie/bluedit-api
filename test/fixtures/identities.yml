@@ -2,10 +2,10 @@
 
 one:
   user: one
-  provider: MyString
-  provider_id: MyString
+  provider: google
+  provider_id: google_user_1
 
 two:
   user: two
-  provider: MyString
-  provider_id: MyString
+  provider: google
+  provider_id: google_user_2
