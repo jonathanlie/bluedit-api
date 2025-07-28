@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"
+  title: Test Post
+  body: This is a test post.
+  user: one
+  subbluedit: one
+
+two:
+  id: "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"
+  title: Another Post
+  body: This is another test post.
+  user: two
+  subbluedit: two
