@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_27_194657) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_28_163943) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "identities", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -22,6 +23,27 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_27_194657) do
     t.datetime "updated_at", null: false
     t.index ["user_id", "provider"], name: "index_identities_on_user_id_and_provider", unique: true
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "posts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "title", null: false
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.uuid "subbluedit_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subbluedit_id"], name: "index_posts_on_subbluedit_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "subbluedits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_subbluedits_on_name", unique: true
+    t.index ["user_id"], name: "index_subbluedits_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -34,4 +56,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_27_194657) do
   end
 
   add_foreign_key "identities", "users"
+  add_foreign_key "posts", "subbluedits"
+  add_foreign_key "posts", "users"
+  add_foreign_key "subbluedits", "users"
 end

@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  name: MySubbluedit
+  description: A test subbluedit
   user: one
-  provider: google
-  provider_id: google_user_1
 
 two:
+  name: AnotherSubbluedit
+  description: Another test subbluedit
   user: two
-  provider: google
-  provider_id: google_user_2

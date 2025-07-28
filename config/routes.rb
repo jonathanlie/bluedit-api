@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "auth/google", to: "authentication#google_oauth2"
+      resources :subbluedits, only: [ :show, :create ] do
+        resources :posts, only: [ :create ]
+      end
     end
   end
 end
