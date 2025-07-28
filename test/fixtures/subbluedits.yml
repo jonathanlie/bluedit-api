@@ -1,13 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  id: "11111111-1111-1111-1111-111111111111"
   name: MySubbluedit
   description: A test subbluedit
   user: one
 
 two:
-  id: "22222222-2222-2222-2222-222222222222"
   name: AnotherSubbluedit
   description: Another test subbluedit
   user: two
