@@ -8,7 +8,7 @@ class ApiV1PostsFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "can create post with auth" do
-    post api_v1_subbluedit_posts_url(@subbluedit),
+    post api_v1_subbluedit_posts_url(@subbluedit.name),
       params: { post: { title: "Flow Post", body: "Body text" } },
       headers: { "Authorization" => "Bearer #{@token}" }
     assert_response :created
@@ -16,7 +16,7 @@ class ApiV1PostsFlowTest < ActionDispatch::IntegrationTest
   end
 
   test "cannot create post without auth" do
-    post api_v1_subbluedit_posts_url(@subbluedit), params: { post: { title: "NoAuth", body: "desc" } }
+    post api_v1_subbluedit_posts_url(@subbluedit.name), params: { post: { title: "NoAuth", body: "desc" } }
     assert_response :unauthorized
   end
 end
