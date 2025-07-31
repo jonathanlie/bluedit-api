@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_28_163943) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_30_120243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
+
+  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.uuid "post_id", null: false
+    t.uuid "parent_comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["parent_comment_id"], name: "index_comments_on_parent_comment_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "identities", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -55,8 +67,23 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_28_163943) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.integer "value", null: false
+    t.bigint "user_id", null: false
+    t.string "votable_type", null: false
+    t.uuid "votable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_votes_on_user_id"
+    t.index ["votable_type", "votable_id"], name: "index_votes_on_votable"
+  end
+
+  add_foreign_key "comments", "comments", column: "parent_comment_id"
+  add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "identities", "users"
   add_foreign_key "posts", "subbluedits"
   add_foreign_key "posts", "users"
   add_foreign_key "subbluedits", "users"
+  add_foreign_key "votes", "users"
 end
