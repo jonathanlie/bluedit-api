@@ -4,9 +4,14 @@ module Api
       skip_before_action :authenticate_request, only: [ :show ]
 
       def show
-        subbluedit = Subbluedit.find_by(name: params[:id])
+        subbluedit = Subbluedit.find_by(name: params[:name])
         if subbluedit
-          render json: subbluedit, include: :posts
+          render json: subbluedit, include: [
+            :user,
+            posts: {
+              include: [:user, :votes, :comments]
+            }
+          ]
         else
           render json: { error: "Subbluedit not found" }, status: :not_found
         end
