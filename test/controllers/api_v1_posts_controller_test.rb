@@ -8,13 +8,13 @@ class ApiV1PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create post without auth" do
-    post api_v1_subbluedit_posts_url(@subbluedit), params: { post: { title: "T", body: "B" } }
+    post api_v1_subbluedit_posts_url(@subbluedit.name), params: { post: { title: "T", body: "B" } }
     assert_response :unauthorized
   end
 
   test "should create post with auth" do
     assert_difference("Post.count") do
-      post api_v1_subbluedit_posts_url(@subbluedit),
+      post api_v1_subbluedit_posts_url(@subbluedit.name),
         params: { post: { title: "New Post", body: "Body text" } },
         headers: { "Authorization" => "Bearer #{@token}" }
     end
@@ -23,7 +23,7 @@ class ApiV1PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not create post with invalid params" do
-    post api_v1_subbluedit_posts_url(@subbluedit),
+    post api_v1_subbluedit_posts_url(@subbluedit.name),
       params: { post: { title: "", body: "" } },
       headers: { "Authorization" => "Bearer #{@token}" }
     assert_response :unprocessable_entity

@@ -69,6 +69,54 @@ Content-Type: application/json
 }
 ```
 
+### Create a Comment on a Post
+
+```
+POST /api/v1/subbluedits/:subbluedit_id/posts/:post_id/comments
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "comment": {
+    "body": "Great post!",
+    "parent_comment_id": "optional-uuid-for-replies"
+  }
+}
+```
+
+### Vote on a Post
+
+```
+POST /api/v1/subbluedits/:subbluedit_id/posts/:post_id/vote
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "vote": {
+    "value": 1
+  }
+}
+```
+
+### Vote on a Comment
+
+```
+POST /api/v1/comments/:comment_id/vote
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "vote": {
+    "value": -1
+  }
+}
+```
+
 ### Error Responses
 - 401 Unauthorized: If the `Authorization` header is missing or invalid for protected endpoints.
 - 422 Unprocessable Entity: If required parameters are missing or invalid.
+- 404 Not Found: If the requested resource doesn't exist.
+
+### Vote Values
+- `1`: Upvote
+- `-1`: Downvote
