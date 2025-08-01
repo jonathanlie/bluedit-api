@@ -1,7 +1,7 @@
 module Api
   module V1
     class PostsController < ApplicationController
-      skip_before_action :authenticate_request, only: [:show]
+      skip_before_action :authenticate_request, only: [ :show ]
 
       def show
         post = Post.find(params[:id])
@@ -10,7 +10,7 @@ module Api
           :subbluedit,
           :votes,
           comments: {
-            include: [:user, :votes, :replies]
+            include: [ :user, :votes, :replies ]
           }
         ]
       end

@@ -9,7 +9,7 @@ module Api
           render json: subbluedit, include: [
             :user,
             posts: {
-              include: [:user, :votes, :comments]
+              include: [ :user, :votes, :comments ]
             }
           ]
         else
